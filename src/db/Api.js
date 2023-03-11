@@ -1,6 +1,7 @@
-const express = require('express')
+const express = require('express');
 const querystring = require('querystring');
 const mongoose = require('mongoose')
+const ObjectId = require('mongodb').ObjectId; 
 const app = express()
 const port = 2780;
 const db = require('./connection');
@@ -149,4 +150,120 @@ app.get("/product",(req,res)=>{
         })
         .catch((err)=>console.log(err))
     }
+})
+
+app.get("/product/:category/:id",(req,res)=>{
+    let { params } = req
+    let { category,id } = params
+    let obj_id = new ObjectId(id);
+    if(category=="Electronic"){
+        ElectroniProduct.find({_id:obj_id})
+            .then((result)=>{
+            res.send(result)
+            })
+            .catch((err)=>console.log(err))
+    }
+    if(category=="Application"){
+        ApplicationProduct.find({_id:obj_id})
+            .then((result)=>{
+            res.send(result)
+            })
+            .catch((err)=>console.log(err))
+    }
+    if(category=="Fashion"){
+        FashionProduct.find({_id:obj_id})
+            .then((result)=>{
+            res.send(result)
+            })
+            .catch((err)=>console.log(err))
+    }
+    if(category=="Home"){
+        HomeProduct.find({_id:obj_id})
+            .then((result)=>{
+            res.send(result)
+            })
+            .catch((err)=>console.log(err))
+    }
+    if(category=="Grocery"){
+        GroceryProduct.find({_id:obj_id})
+            .then((result)=>{
+            res.send(result)
+            })
+            .catch((err)=>console.log(err))
+    }
+    if(category=="Toy"){
+        ToyProduct.find({_id:obj_id})
+            .then((result)=>{
+            res.send(result)
+            })
+        .catch((err)=>console.log(err))
+    }
+})
+
+app.put('/edit/:id', (req,res)=>{
+    let {body,params} =  req
+    let obj_id = new ObjectId(params.id);
+    if(body){
+        const data = body.body
+        if(data.category == "Electronic"){
+        const finalData = {
+            name: data.name,
+            image: data.image,
+            price: data.price,
+            discount: data.discount,
+            category:data.category,
+            type:data.type,
+            rating:data.rating,
+            inStock:data.inStock,
+            deliveryfree:data.deliveryfree,
+            RAM:data.RAM,
+            ROM:data.ROM,
+            color:data.color,
+            battery:data.battery 
+        }
+            ElectroniProduct.updateOne({ _id:obj_id },{ $set : finalData })
+            .then((result)=> res.send(result))
+            .catch((err)=>console.log(err))
+        }
+        else {
+            const finalData = {
+                name: data.name,
+                image: data.image,
+                price: data.price,
+                discount: data.discount,
+                category:data.category,
+                type:data.type,
+                rating:data.rating,
+                inStock:data.inStock,
+                deliveryfree:data.deliveryfree
+            }
+            if(finalData.category == "Application"){
+                ApplicationProduct.updateOne({ _id:obj_id },{ $set : finalData })
+                .then((result)=> res.send(result))
+                .catch((err)=>console.log(err))
+            }
+            if(finalData.category == "Fashion"){
+                FashionProduct.updateOne({ _id:obj_id },{ $set : finalData })
+                .then((result)=> res.send(result))
+                .catch((err)=>console.log(err))
+            }
+            if(finalData.category == "Home"){
+                HomeProduct.updateOne({ _id:obj_id },{ $set : finalData })
+                .then((result)=> res.send(result))
+                .catch((err)=>console.log(err))
+            }
+            if(finalData.category == "Grocery"){
+                GroceryProduct.updateOne({ _id:obj_id },{ $set : finalData })
+                .then((result)=> res.send(result))
+                .catch((err)=>console.log(err))
+            }
+            if(finalData.category == "Toy"){
+                ToyProduct.updateOne({ _id:obj_id },{ $set : finalData })
+                .then((result)=> res.send(result))
+                .catch((err)=>console.log(err))
+            }
+        }
+        
+    }
+
 })

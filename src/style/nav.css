@@ -1,17 +1,3 @@
-.nav{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #7c757575;
-    height: 58px ;
-    margin-bottom: -4px;
-
-}
-.nav-item{
-    display: flex;
-    gap: 20px;
-    padding-right: 25px;
-}
 .nav-link{
     border: 1px solid gray;
     padding: 15px;
@@ -27,4 +13,62 @@ a{
 }
 span{
     color: red;
+}
+@media only screen and (min-width: 1200px){ /*Desktop [1200px]*/
+    .nav{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #7c757575;
+        height: auto ;
+        margin-bottom: -4px;
+    }
+    .nav-item{
+        display: flex;
+        gap: 20px;
+        padding-right: 25px;
+    }
+    .nav-link{
+        border: 1px solid gray;
+        padding: 15px;
+        border-radius: 10px;
+    }
+    .nav-link:hover {
+        color: black;
+        background-color: white;
+    }
+    a{
+        color: white;
+        text-decoration: none;
+    }
+    span{
+        color: red;
+    }
+}
+@media only screen and (min-width: 800px) and (max-width: 1200px){
+	/*Tablets and Big smartphones [800px -> 1200px]*/
+    .nav{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #7c757575;
+        height: auto ;
+        margin-bottom: -4px;
+    }
+    .nav-item{
+        display: flex;
+        gap: 20px;
+        padding-right: 25px;
+    }
+}
+@media only screen and (max-width: 700px){
+	/*Small smartphones [325px -> 425px]*/
+    .nav{
+        display: flex;
+        background-color: #7c757575;
+        height: auto;
+        margin-bottom: -4px;
+        flex-direction: column;
+        text-align: center;
+    }
 }

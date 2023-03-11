@@ -1,8 +1,24 @@
 import React,{ useState } from 'react' 
 import '../style/add.css';
-import { postAxios } from '../useAxios/useAxios';
+import { getAxios, postAxios, putAxios } from '../useAxios/useAxios';
 
-function Add() {
+function Add(props) {
+  if(props.editID.id != ""){
+    getAxios(`/Product/${props.editID.category}/${props.editID.id}`)
+    .then((response)=>{
+      let data = response.data
+      if(data[0].category){
+        setFormValue({name:data[0].name,image:data[0].image,price:data[0].price,discount:data[0].discount,category:data[0].category,type:data[0].type,rating:data[0].rating,inStock:data[0].inStock,deliveryfree:data[0].deliveryfree})
+        if(data[0].category=="Electronic")
+          setPropertyData({RAM:data[0].RAM,ROM:data[0].ROM,color:data[0].color,battery:data[0].battery})
+        setCategoryIndex(categoryArray.findIndex(ele => ele == data[0].category));
+        setEditProduct(props.editID.id)
+        props.setEditID({id:"",category:""});
+      }
+    })
+    .catch((err)=>console.log(err))
+  }
+  const [edited,setEditProduct] = useState("")
   const categoryArray = ["Select","Electronic","Application","Fashion","Home","Grocery","Toys"];
   const typeArray = [["Select Category First"],["Select","Phone","Tablet","Laptop"],["Select","Washing Machine","TV","Air Conditioners","Fan"],["Select","Man","Women","Kids"],
                     ["Select","Furniture","Kitchen","Bedroom"],["No Type"],["No Type"]]
@@ -72,10 +88,7 @@ function Add() {
       return true;
     else
       return false;
-
-
   }
-
   const  addProduct = () =>{
     let product = null;
     if(formValues.category == "Electronic")
@@ -87,10 +100,30 @@ function Add() {
       reset()
     }
   }
+  const editProduct =()=>{
+    let product = null;
+    if(formValues.category == "Electronic")
+      product = {...formValues,...propertySet}
+    else 
+    product = formValues
+    if(validation(product)){
+      putAxios(`/edit/${edited}`,product)
+      .then((response)=>{
+          if(response.data.modifiedCount == 1)
+            alert("Successfully Done")
+          else 
+            alert("Error")
+      })
+      .catch((err)=>console.log(err))
+      setEditProduct("")
+      reset()
+    }
+  }
   const reset = () => {
     setFormValue(intialValues)
       setPropertyData(initialPropElectro)
       setCategoryIndex(0)
+      props.setEditID({id:"",category:""});
   }
 
   return (
@@ -138,7 +171,7 @@ function Add() {
             <div className='error' id='err_type'></div>
           </div>
         </div>
-        <div className='ele-discription' style={{display:(formValues.category=="Electronic"?"block":"none")}}>
+        <div className='ele-discription' style={{display:(formValues.category=="Electronic" ? "block":"none")}}>
           <div className='disc-item'>
             <label className='disc-item-label'>RAM :- </label>
             { makeRadio('RAM',propertyArray.RAM) }
@@ -188,8 +221,11 @@ function Add() {
         </div>
         <div>
           <div className='btn'>
-            <button className='m_btn' onClick={(e) => addProduct(e)}>Add Product</button>
-            <button className='m_btn' onClick={reset}>Reset Data</button>
+            {edited == "" ? 
+              <button className='m_btn' onClick={(e) => addProduct(e)}>Add Product</button>
+            :
+              <button className='m_btn' onClick={(e) => editProduct(e)}>Edit Product</button>}
+            <button className='m_btn' onClick={(e) => reset(e)}>Reset Data</button>
 
           </div>
         </div>
