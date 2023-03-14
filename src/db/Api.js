@@ -38,10 +38,11 @@ app.post('/add', (req,res)=>{
             const electroniProduct = new ElectroniProduct(finalData)
             electroniProduct.save((err)=>{
                 if(err)
-                    console.log(err)
+                    res.send(err)
                 else
-                    console.log('Data Added')
+                    res.send("Product Successfully Added")
             })
+            
         }
         else {
             const finalData = {
@@ -58,46 +59,46 @@ app.post('/add', (req,res)=>{
             if(finalData.category == "Application"){
                 const appliProduct = new ApplicationProduct(finalData)
                 appliProduct.save((err)=>{
-                    if(err)
-                        console.log(err)
-                    else
-                        console.log('Data Added')
+                if(err)
+                    res.send(err)
+                else
+                    res.send("Product Successfully Added")
                 })
             }
             if(finalData.category == "Fashion"){
                 const fashProduct = new FashionProduct(finalData)
                 fashProduct.save((err)=>{
-                    if(err)
-                        console.log(err)
-                    else
-                        console.log('Data Added')
+                if(err)
+                    res.send(err)
+                else
+                    res.send("Product Successfully Added")
                 })
             }
             if(finalData.category == "Home"){
                 const homeProduct = new HomeProduct(finalData)
                 homeProduct.save((err)=>{
-                    if(err)
-                        console.log(err)
-                    else
-                        console.log('Data Added')
+                if(err)
+                    res.send(err)
+                else
+                    res.send("Product Successfully Added")
                 })
             }
             if(finalData.category == "Grocery"){
                 const groceryProduct = new GroceryProduct(finalData)
                 groceryProduct.save((err)=>{
-                    if(err)
-                        console.log(err)
-                    else
-                        console.log('Data Added')
+                if(err)
+                    res.send(err)
+                else
+                    res.send("Product Successfully Added")
                 })
             }
             if(finalData.category == "Toy"){
                 const toyProduct = new ToyProduct(finalData)
                 toyProduct.save((err)=>{
-                    if(err)
-                        console.log(err)
-                    else
-                        console.log('Data Added')
+                if(err)
+                    res.send(err)
+                else
+                    res.send("Product Successfully Added")
                 })
             }
         }

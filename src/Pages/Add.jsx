@@ -97,6 +97,8 @@ function Add(props) {
     product = formValues
     if(validation(product)){
       postAxios("/add",product)
+      .then((response)=>alert(response.data))
+      .catch(err=>alert(err))
       reset()
     }
   }
@@ -123,6 +125,7 @@ function Add(props) {
     setFormValue(intialValues)
       setPropertyData(initialPropElectro)
       setCategoryIndex(0)
+      setEditProduct("")
       props.setEditID({id:"",category:""});
   }
 

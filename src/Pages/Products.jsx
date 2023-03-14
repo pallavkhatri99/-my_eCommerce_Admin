@@ -57,7 +57,7 @@ function Product(props) {
       <div className="bottom_btn">
             {rowcount.min == 0 ? <div></div> : <button className="m_btn" onClick={()=>setRowCount({min:rowcount.min-5,max:rowcount.max-5})}>Previous</button>}
             {productData.length!= 0 ? <p>Total Products Count: <span>{productData.length}</span></p> : <div></div>}
-            {rowcount.max > productData.length ? <div></div> : <button className="m_btn" onClick={()=>setRowCount({min:rowcount.max,max:rowcount.max+5})}>Next</button>}
+            {rowcount.max >= productData.length ? <div></div> : <button className="m_btn" onClick={()=>setRowCount({min:rowcount.max,max:rowcount.max+5})}>Next</button>}
           </div>
     </div>
 

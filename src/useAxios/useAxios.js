@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURl= "http://43.204.219.125:2780"
+const baseURl= "http://localhost:2780"
 
 
 const postAxios = (url,data) => axios.post(`${baseURl}${url}`,{body:data})
