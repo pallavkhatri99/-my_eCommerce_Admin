@@ -92,7 +92,8 @@ app.post('/add', (req,res)=>{
                     res.send("Product Successfully Added")
                 })
             }
-            if(finalData.category == "Toy"){
+            if(finalData.category == "Toys"){
+                console.log()
                 const toyProduct = new ToyProduct(finalData)
                 toyProduct.save((err)=>{
                 if(err)
@@ -144,7 +145,7 @@ app.get("/product",(req,res)=>{
         })
         .catch((err)=>console.log(err))
     }
-    if(query.category=="Toy"){
+    if(query.category=="Toys"){
         ToyProduct.find()
         .then((result)=>{
         res.send(result)
@@ -192,7 +193,7 @@ app.get("/product/:category/:id",(req,res)=>{
             })
             .catch((err)=>console.log(err))
     }
-    if(category=="Toy"){
+    if(category=="Toys"){
         ToyProduct.find({_id:obj_id})
             .then((result)=>{
             res.send(result)
@@ -258,11 +259,11 @@ app.put('/edit/:id', (req,res)=>{
                 .then((result)=> res.send(result))
                 .catch((err)=>console.log(err))
             }
-            if(finalData.category == "Toy"){
+            if(finalData.category == "Toys"){
                 ToyProduct.updateOne({ _id:obj_id },{ $set : finalData })
                 .then((result)=> res.send(result))
                 .catch((err)=>console.log(err))
-            }
+            }   
         }
         
     }
