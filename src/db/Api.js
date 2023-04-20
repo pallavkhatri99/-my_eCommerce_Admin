@@ -93,7 +93,6 @@ app.post('/add', (req,res)=>{
                 })
             }
             if(finalData.category == "Toys"){
-                console.log()
                 const toyProduct = new ToyProduct(finalData)
                 toyProduct.save((err)=>{
                 if(err)
