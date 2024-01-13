@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const env = require('dotenv').config({ path: '../../.env' });
 mongoose.set('strictQuery', false);
-const uri = "mongodb+srv://pallavkhatri9991:pallav99@cluster0.r1iv7ks.mongodb.net/ecom?retryWrites=true&w=majority";
+const uri = process.env.MONGOOSE_CONN_STRING;
 const db = mongoose.connect(uri,{ useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected!'))
   .catch(() => console.log('Opps NotConnected!'));
